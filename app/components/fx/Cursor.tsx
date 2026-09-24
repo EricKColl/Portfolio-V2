@@ -18,7 +18,7 @@ export default function Cursor() {
     const label = labelRef.current;
     if (!dot || !ring || !label) return;
 
-    document.documentElement.classList.add("has-custom-cursor");
+    const html = document.documentElement;
     let x = -100;
     let y = -100;
     let rx = -100;
@@ -49,12 +49,23 @@ export default function Cursor() {
     };
 
     const loop = () => {
-      rx += (x - rx) * 0.16;
-      ry += (y - ry) * 0.16;
+      rx += (x - rx) * 0.24;
+      ry += (y - ry) * 0.24;
       ring.style.transform = `translate(${rx}px, ${ry}px)`;
       raf = window.requestAnimationFrame(loop);
     };
-    raf = window.requestAnimationFrame(loop);
+
+    // Con un caso de estudio abierto (iframe a pantalla completa) el cursor propio se suspende:
+    // los eventos del puntero ya no llegan a esta página y se vería congelado con el nativo oculto.
+    const sync = () => {
+      const suspended = document.body.classList.contains("case-study-open");
+      html.classList.toggle("has-custom-cursor", !suspended);
+      window.cancelAnimationFrame(raf);
+      if (!suspended) raf = window.requestAnimationFrame(loop);
+    };
+    sync();
+    const observer = new MutationObserver(sync);
+    observer.observe(document.body, { attributes: true, attributeFilter: ["class"] });
 
     window.addEventListener("pointermove", onMove, { passive: true });
     window.addEventListener("pointerdown", onDown);
@@ -63,8 +74,9 @@ export default function Cursor() {
     document.documentElement.addEventListener("pointerenter", onEnter);
 
     return () => {
+      observer.disconnect();
       window.cancelAnimationFrame(raf);
-      document.documentElement.classList.remove("has-custom-cursor");
+      html.classList.remove("has-custom-cursor");
       window.removeEventListener("pointermove", onMove);
       window.removeEventListener("pointerdown", onDown);
       window.removeEventListener("pointerup", onUp);

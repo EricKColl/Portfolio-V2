@@ -110,7 +110,7 @@ export default function WebGLBackdrop() {
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const mobile = window.matchMedia("(max-width: 820px)").matches || window.matchMedia("(pointer: coarse)").matches;
-    const count = reduced ? 900 : mobile ? 1400 : 4200;
+    const count = reduced ? 900 : mobile ? 1200 : 3200;
 
     const pts = program(gl, VERT, FRAG);
     const bg = program(gl, BG_VERT, BG_FRAG);
@@ -143,7 +143,7 @@ export default function WebGLBackdrop() {
     let height = 0;
     let dpr = 1;
     const resize = () => {
-      dpr = Math.min(window.devicePixelRatio || 1, mobile ? 1.25 : 1.75);
+      dpr = Math.min(window.devicePixelRatio || 1, mobile ? 1.25 : 1.5);
       width = window.innerWidth;
       height = window.innerHeight;
       canvas.width = Math.round(width * dpr);
@@ -248,18 +248,24 @@ export default function WebGLBackdrop() {
       raf = window.requestAnimationFrame(frame);
     }
 
+    // Se detiene en segundo plano y mientras hay un caso de estudio abierto (no se ve y compite por la GPU).
     const onVisibility = () => {
       if (reduced) return;
-      if (document.hidden) {
+      const shouldRun = !document.hidden && !document.body.classList.contains("case-study-open");
+      canvas.dataset.paused = shouldRun ? "false" : "true";
+      if (!shouldRun && running) {
         running = false;
         window.cancelAnimationFrame(raf);
-      } else if (!running) {
+      } else if (shouldRun && !running) {
         running = true;
         last = performance.now();
         raf = window.requestAnimationFrame(frame);
       }
     };
     document.addEventListener("visibilitychange", onVisibility);
+    const bodyObserver = new MutationObserver(onVisibility);
+    bodyObserver.observe(document.body, { attributes: true, attributeFilter: ["class"] });
+    canvas.dataset.paused = "false";
 
     return () => {
       running = false;
@@ -269,6 +275,7 @@ export default function WebGLBackdrop() {
       window.removeEventListener("pointerdown", onDown);
       window.removeEventListener("scroll", updateScrollTargets);
       document.removeEventListener("visibilitychange", onVisibility);
+      bodyObserver.disconnect();
       gl.getExtension("WEBGL_lose_context")?.loseContext();
     };
   }, []);

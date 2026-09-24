@@ -20,6 +20,13 @@ Rediseño completo del portfolio con una identidad **futurista e interactiva**, 
 
 Los casos de estudio por fases (JobConnect, ReparaYa, Online Store, TrendTech y **HotelScout**) se abren igual que antes, con navegación por teclado (`←` `→` `Esc`).
 
+## Rendimiento y casos de estudio
+
+- Al abrir un caso de estudio (iframe a pantalla completa) el cursor propio se **suspende** y vuelve el nativo, el fondo WebGL se **detiene** y la página de detrás **no se pinta**: así las fases cambian sin tirones y no compiten por la GPU.
+- Las tarjetas ya no usan `backdrop-filter` (era el efecto más caro sobre un fondo animado); solo lo conservan la cabecera, el dock móvil y la paleta.
+- Las animaciones que repintaban cada fotograma (degradados animados, sombras animadas, ángulos con `@property`) se sustituyeron por `transform`/`opacity`, que va por la GPU.
+- Accesibilidad automática (axe, WCAG 2.x A/AA): 0 infracciones con y sin «reducir movimiento».
+
 ## Principios
 
 - **Accesible:** con «reducir movimiento» no hay arranque, cursor, revelados, tilt ni animación WebGL (se dibuja un único fotograma). Contenido visible sin JavaScript, foco visible, enlace de salto al contenido y etiquetas ARIA.
@@ -60,4 +67,4 @@ GITHUB_ACTIONS=true npm run build:pages   # exportación estática en out/ (como
 
 ## Pruebas realizadas
 
-Compilación estática y lint sin errores; recorrido automatizado en Edge (paleta, casos de estudio con navegación por teclado, correo y teléfono, versión móvil sin desbordamiento, modo de movimiento reducido). **No medido:** rendimiento del WebGL en una GPU real y en móviles de gama baja, Firefox y Safari.
+Compilación estática y lint sin errores; recorrido automatizado en Edge (paleta, casos de estudio con navegación por teclado, correo y teléfono, versión móvil sin desbordamiento, modo de movimiento reducido). **No medido:** rendimiento del WebGL en una GPU real y en móviles de gama baja, Firefox y Safari. Con renderizado por software (sin GPU) las mejoras de esta revisión duplicaron los fotogramas por segundo en la portada (de 3,6 a 8,8), pero esa cifra no es representativa de un equipo real.

@@ -15,7 +15,7 @@
   --bg: #03050a;
   --ink: #eaf1ff;
   --dim: #98a8c2;
-  --mute: #5f6e88;
+  --mute: #8191ad;
   --cy: #22e5ff;
   --bl: #4f8dff;
   --vi: #a78bfa;
@@ -24,7 +24,7 @@
   --ok: #7dffb2;
   --line: rgba(255, 255, 255, 0.1);
   --line-strong: rgba(255, 255, 255, 0.2);
-  --glass: rgba(9, 14, 28, 0.58);
+  --glass: rgba(9, 14, 28, 0.78);
   --glass-strong: rgba(9, 14, 28, 0.82);
   --grad: linear-gradient(100deg, #22e5ff 0%, #4f8dff 45%, #a78bfa 75%, #ff5cc8 100%);
   --radius: 22px;
@@ -149,8 +149,7 @@ kbd {
   z-index: 1;
   inset: 0;
   pointer-events: none;
-  opacity: 0.05;
-  mix-blend-mode: overlay;
+  opacity: 0.035;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
 }
 
@@ -232,7 +231,6 @@ html.has-custom-cursor .cursor-ring {
   height: 92px;
   margin: -46px 0 0 -46px;
   background: rgba(34, 229, 255, 0.16);
-  backdrop-filter: blur(3px);
 }
 .cursor-ring.is-down::before {
   transform: scale(0.82);
@@ -525,7 +523,6 @@ html.has-custom-cursor .cursor-ring {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  animation: grad-shift 8s ease-in-out infinite alternate;
   text-shadow: none;
   filter: drop-shadow(0 4px 24px rgba(3, 5, 10, 0.8));
 }
@@ -581,7 +578,6 @@ html.js .reveal.is-in {
   border-color: var(--line-strong);
   background: rgba(255, 255, 255, 0.04);
   color: var(--ink);
-  backdrop-filter: blur(8px);
 }
 .btn-ghost:hover {
   border-color: rgba(34, 229, 255, 0.6);
@@ -623,7 +619,6 @@ html.js .reveal.is-in {
   border: 1px solid var(--line);
   border-radius: 999px;
   background: var(--glass);
-  backdrop-filter: blur(10px);
   font: 600 12px/1.3 var(--font-geist-mono), monospace;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -664,7 +659,6 @@ html.js .reveal.is-in {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  animation: grad-shift 9s ease-in-out infinite alternate;
   filter: drop-shadow(0 4px 26px rgba(3, 5, 10, 0.85));
 }
 .hero-intro {
@@ -714,7 +708,6 @@ html.js .reveal.is-in {
   border: 1px solid var(--line);
   border-radius: 16px;
   background: var(--glass);
-  backdrop-filter: blur(10px);
 }
 .hero-stats dd {
   font-size: clamp(24px, 3vw, 34px);
@@ -739,7 +732,7 @@ html.js .reveal.is-in {
 .tilt {
   transform: perspective(1100px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
   transform-style: preserve-3d;
-  transition: transform 300ms var(--ease-out, ease-out);
+  transition: transform 140ms ease-out;
   will-change: transform;
 }
 
@@ -751,18 +744,29 @@ html.js .reveal.is-in {
 .portrait-ring {
   position: absolute;
   inset: -3px;
+  overflow: hidden;
   border-radius: 30px;
-  background: conic-gradient(from var(--ang), transparent 0 55%, var(--cy), var(--bl), var(--vi), var(--ma), transparent 95%);
-  animation: spin-ang 6s linear infinite;
-  filter: blur(0.4px);
+}
+.portrait-ring::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 170%;
+  aspect-ratio: 1;
+  background: conic-gradient(transparent 0 55%, var(--cy), var(--bl), var(--vi), var(--ma), transparent 95%);
+  transform: translate(-50%, -50%);
+  animation: ring-spin 6s linear infinite;
 }
 .portrait-ring-2 {
   inset: -22px;
   border-radius: 46px;
   opacity: 0.35;
   filter: blur(26px);
-  animation-duration: 9s;
-  animation-direction: reverse;
+}
+@keyframes ring-spin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
 }
 @keyframes spin-ang {
   to { --ang: 360deg; }
@@ -829,7 +833,6 @@ html.js .reveal.is-in {
   border: 1px solid var(--line-strong);
   border-radius: 14px;
   background: rgba(3, 6, 14, 0.62);
-  backdrop-filter: blur(12px);
   font: 700 11px/1 var(--font-geist-mono), monospace;
   letter-spacing: 0.16em;
   color: #fff;
@@ -843,7 +846,6 @@ html.js .reveal.is-in {
   border: 1px solid var(--line-strong);
   border-radius: 999px;
   background: var(--glass-strong);
-  backdrop-filter: blur(10px);
   font: 700 12px/1 var(--font-geist-mono), monospace;
   color: var(--cy);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(34, 229, 255, 0.18);
@@ -893,7 +895,6 @@ html.js .reveal.is-in {
   overflow: hidden;
   border-block: 1px solid var(--line);
   background: linear-gradient(180deg, rgba(3, 6, 14, 0.5), rgba(3, 6, 14, 0.7));
-  backdrop-filter: blur(8px);
   mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
 }
@@ -963,8 +964,7 @@ html.js .reveal.is-in {
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  background: linear-gradient(160deg, rgba(14, 22, 42, 0.78), rgba(5, 8, 18, 0.72));
-  backdrop-filter: blur(14px);
+  background: linear-gradient(160deg, rgba(14, 22, 42, 0.9), rgba(5, 8, 18, 0.86));
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
   transition: border-color 300ms ease, box-shadow 300ms ease;
 }
@@ -999,8 +999,12 @@ html.js .reveal.is-in {
   pointer-events: none;
   transition: opacity 300ms ease;
   animation: spin-ang 5s linear infinite;
+  animation-play-state: paused;
 }
-.pcard:hover .pcard-border { opacity: 1; }
+.pcard:hover .pcard-border {
+  opacity: 1;
+  animation-play-state: running;
+}
 
 .pcard-glare {
   position: absolute;
@@ -1081,7 +1085,6 @@ html.js .reveal.is-in {
   border: 1px solid var(--accent);
   border-radius: 999px;
   background: rgba(3, 5, 10, 0.7);
-  backdrop-filter: blur(8px);
   font: 700 11px/1 var(--font-geist-mono), monospace;
   letter-spacing: 0.1em;
   color: #fff;
@@ -1193,7 +1196,6 @@ html.js .reveal.is-in {
   border: 1px solid var(--line);
   border-radius: 18px;
   background: var(--glass);
-  backdrop-filter: blur(12px);
 }
 .xp-stats dd {
   font-size: clamp(22px, 2.6vw, 32px);
@@ -1227,8 +1229,7 @@ html.js .reveal.is-in {
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  background: linear-gradient(160deg, rgba(14, 22, 42, 0.78), rgba(5, 8, 18, 0.72));
-  backdrop-filter: blur(14px);
+  background: linear-gradient(160deg, rgba(14, 22, 42, 0.9), rgba(5, 8, 18, 0.86));
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
   transition: border-color 300ms ease;
 }
@@ -1330,6 +1331,7 @@ html.js .reveal.is-in {
   text-align: center;
 }
 .xp-route b {
+  position: relative;
   display: grid;
   place-items: center;
   width: 44px;
@@ -1339,15 +1341,23 @@ html.js .reveal.is-in {
   background: #060a16;
   font: 700 12px/1 var(--font-geist-mono), monospace;
   color: var(--cy);
-  animation: node-glow 3.2s ease-in-out infinite;
+}
+.xp-route b::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 50%;
+  box-shadow: 0 0 20px rgba(34, 229, 255, 0.55), inset 0 0 0 1px var(--cy);
+  opacity: 0;
+  animation: node-ring 3.2s ease-in-out infinite;
   animation-delay: calc(var(--i) * 0.5s);
 }
 .xp-route span {
   font-size: 12px;
   color: var(--dim);
 }
-@keyframes node-glow {
-  50% { box-shadow: 0 0 20px rgba(34, 229, 255, 0.55); border-color: var(--cy); }
+@keyframes node-ring {
+  50% { opacity: 1; }
 }
 
 .ai-orbit {
@@ -1357,6 +1367,14 @@ html.js .reveal.is-in {
   aspect-ratio: 1;
   margin: 6px auto;
 }
+.ai-orbit::before {
+  content: "";
+  position: absolute;
+  inset: 12%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(167, 139, 250, 0.6), rgba(34, 229, 255, 0.16) 62%, transparent);
+  animation: glow-pulse 4s ease-in-out infinite;
+}
 .ai-core {
   position: absolute;
   inset: 30%;
@@ -1364,7 +1382,6 @@ html.js .reveal.is-in {
   place-items: center;
   border-radius: 50%;
   overflow: hidden;
-  box-shadow: 0 0 60px rgba(167, 139, 250, 0.55);
   animation: core-pulse 4s ease-in-out infinite;
 }
 .ai-core img {
@@ -1373,7 +1390,10 @@ html.js .reveal.is-in {
   object-fit: cover;
 }
 @keyframes core-pulse {
-  50% { transform: scale(1.06); box-shadow: 0 0 90px rgba(34, 229, 255, 0.6); }
+  50% { transform: scale(1.06); }
+}
+@keyframes glow-pulse {
+  50% { transform: scale(1.18); opacity: 0.7; }
 }
 .ai-orbit ul {
   position: absolute;
@@ -1505,8 +1525,7 @@ html.js .reveal.is-in {
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  background: linear-gradient(160deg, rgba(14, 22, 42, 0.78), rgba(5, 8, 18, 0.72));
-  backdrop-filter: blur(14px);
+  background: linear-gradient(160deg, rgba(14, 22, 42, 0.9), rgba(5, 8, 18, 0.86));
   transition: border-color 300ms ease, transform 400ms var(--ease);
 }
 .stack-card::before {
@@ -1624,7 +1643,6 @@ html.js .reveal.is-in {
   border: 1px solid var(--line);
   border-radius: 24px;
   background: var(--glass);
-  backdrop-filter: blur(14px);
   cursor: pointer;
   transition: border-color 250ms ease, background 250ms ease, box-shadow 300ms ease, transform 350ms var(--ease);
 }
@@ -1939,8 +1957,33 @@ html.js .reveal.is-in {
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
   }
-  .marquee { overflow-x: auto; }
-  .marquee-track { animation: none; }
+  .marquee { mask-image: none; -webkit-mask-image: none; }
+  .marquee-track { animation: none; width: auto; flex-wrap: wrap; justify-content: center; padding-inline: 16px; }
+  .marquee-track li[aria-hidden="true"] { display: none; }
   html.js .reveal { opacity: 1; transform: none; }
   .tilt { transform: none; }
+}
+
+/* ---------- Caso de estudio abierto: menos trabajo para el navegador ---------- */
+body.case-study-open .site-header,
+body.case-study-open main,
+body.case-study-open .site-footer,
+body.case-study-open .section-rail,
+body.case-study-open .mobile-dock,
+body.case-study-open .scroll-progress,
+body.case-study-open .noise {
+  visibility: hidden;
+}
+body.case-study-open .case-study-backdrop {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+body.case-study-open,
+body.case-study-open .case-study-modal * {
+  cursor: auto;
+}
+body.case-study-open .case-study-modal button,
+body.case-study-open .case-study-modal a,
+body.case-study-open .case-study-modal select {
+  cursor: pointer;
 }
