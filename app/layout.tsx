@@ -4,6 +4,7 @@ import "./globals.css";
 import "./case-study.css";
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+const siteUrl = `https://erickcoll.github.io${basePath}/`;
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,10 +28,10 @@ export const metadata: Metadata = {
     title: "Erick Coll — Desarrollador web Full-Stack",
     description:
       "No compito por encajar en el mercado. Portfolio de Erick Coll: HotelScout (PWA en producción), JobConnect, ReparaYa, Online Store y TrendTech.",
-    url: "https://erickcoll.github.io/portfolio-erick-coll/",
+    url: siteUrl,
     images: [
       {
-        url: "https://erickcoll.github.io/portfolio-erick-coll/og-image.png",
+        url: `${siteUrl}og-image.png`,
         width: 1200,
         height: 630,
         alt: "Erick Coll Rodríguez — Full-Stack Developer",
@@ -41,7 +42,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Erick Coll — Desarrollador web Full-Stack",
     description: "Proyectos full-stack, experiencia y tecnologías web.",
-    images: ["https://erickcoll.github.io/portfolio-erick-coll/og-image.png"],
+    images: [`${siteUrl}og-image.png`],
   },
   other: {
     "codex-preview": "development",

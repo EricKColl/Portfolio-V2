@@ -1,7 +1,9 @@
 import type { NextConfig } from "next";
 
 const isGitHubPages = process.env.GITHUB_ACTIONS === "true";
-const repositoryBasePath = "/portfolio-erick-coll";
+// En GitHub Actions el nombre del repositorio es la ruta base de GitHub Pages (usuario.github.io/<repositorio>).
+const repositoryName = process.env.GITHUB_REPOSITORY?.split("/")[1] ?? "portfolio-erick-coll";
+const repositoryBasePath = `/${repositoryName}`;
 
 const nextConfig: NextConfig = {
   ...(isGitHubPages
