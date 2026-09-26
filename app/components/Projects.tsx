@@ -11,6 +11,7 @@ import Reveal from "./fx/Reveal";
 import Tilt from "./fx/Tilt";
 
 const ACCENTS: Record<Project["accent"], string> = {
+  ember: "#ff7a3d",
   cyan: "#22e5ff",
   blue: "#4f8dff",
   gold: "#f5c451",
@@ -18,7 +19,7 @@ const ACCENTS: Record<Project["accent"], string> = {
   magenta: "#ff5cc8",
 };
 
-function ProjectCard({ project }: { project: Project }) {
+function ProjectCard({ project, flip = false }: { project: Project; flip?: boolean }) {
   const [open, setOpen] = useState(false);
   const launchRef = useRef<HTMLButtonElement>(null);
   const isExperience = project.mode === "experience";
@@ -39,7 +40,7 @@ function ProjectCard({ project }: { project: Project }) {
     <>
       <Tilt
         as="article"
-        className={`pcard${project.featured ? " pcard-featured" : ""}`}
+        className={`pcard${project.featured ? " pcard-featured" : ""}${flip ? " pcard-featured-flip" : ""}`}
         max={project.featured ? 5 : 8}
       >
         <div className="pcard-inner" style={{ "--accent": ACCENTS[project.accent] } as CSSProperties}>
@@ -122,7 +123,8 @@ function ProjectCard({ project }: { project: Project }) {
 }
 
 export default function Projects() {
-  const [featured, ...rest] = projects;
+  const featured = projects.filter((project) => project.featured);
+  const rest = projects.filter((project) => !project.featured);
 
   return (
     <section className="section projects" id="proyectos" data-hue="0.35" aria-labelledby="projects-title">
@@ -136,14 +138,18 @@ export default function Projects() {
           <Decode as="span" text="Impacto que permanece." delay={500} className="text-gradient" />
         </h2>
         <p className="section-lead">
-          Cinco proyectos donde arquitectura, backend, datos y experiencia de usuario convergen.
+          Seis proyectos donde arquitectura, backend, datos y experiencia de usuario convergen.
           Cada uno se abre como un caso de estudio por fases.
         </p>
       </header>
 
-      <Reveal>
-        <ProjectCard project={featured} />
-      </Reveal>
+      <div className="projects-featured">
+        {featured.map((project, index) => (
+          <Reveal key={project.title}>
+            <ProjectCard project={project} flip={index % 2 === 1} />
+          </Reveal>
+        ))}
+      </div>
 
       <div className="projects-grid">
         {rest.map((project, index) => (

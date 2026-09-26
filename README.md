@@ -18,7 +18,7 @@ Rediseño completo del portfolio con una identidad **futurista e interactiva**, 
 | **Órbita de IA** | Herramientas de IA girando alrededor de un núcleo |
 | **Navegación** | Barra de progreso, carril de secciones (escritorio) y dock inferior (móvil) |
 
-Los casos de estudio por fases (JobConnect, ReparaYa, Online Store, TrendTech y **HotelScout**) se abren igual que antes, con navegación por teclado (`←` `→` `Esc`).
+Los casos de estudio por fases (**Forja**, **HotelScout**, JobConnect, ReparaYa, Online Store y TrendTech) se abren igual que antes, con navegación por teclado (`←` `→` `Esc`). Los dos proyectos en producción se muestran destacados y alternan la portada a izquierda y derecha.
 
 ## Rendimiento y casos de estudio
 
@@ -40,7 +40,7 @@ Los casos de estudio por fases (JobConnect, ReparaYa, Online Store, TrendTech y 
 app/
   page.tsx · layout.tsx · globals.css   Composición, metadatos y sistema de diseño
   case-study.css                        Estilos del visor de casos (extraídos de la v1)
-  lib/projects.ts                       Datos de los 5 proyectos y sus fases
+  lib/projects.ts                       Datos de los 6 proyectos y sus fases
   components/
     Header · Hero · TechMarquee · Projects · Experience · Stack · Contact
     CaseStudyModal.tsx                  Visor de fases en iframe

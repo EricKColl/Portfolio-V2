@@ -942,6 +942,11 @@ html.js .reveal.is-in {
 }
 
 /* ---------- Proyectos ---------- */
+.projects-featured {
+  display: grid;
+  gap: 26px;
+}
+
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1174,7 +1179,12 @@ html.js .reveal.is-in {
   align-items: center;
   column-gap: 40px;
   padding: 26px;
-  border-color: rgba(34, 229, 255, 0.35);
+  border-color: color-mix(in srgb, var(--accent) 35%, transparent);
+}
+/* Destacados alternos: el segundo lleva la portada a la derecha. */
+.pcard-featured-flip .pcard-inner {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+  grid-template-areas: "top top" "body cover";
 }
 .pcard-featured .pcard-top { grid-area: top; }
 .pcard-featured .pcard-cover { grid-area: cover; }
