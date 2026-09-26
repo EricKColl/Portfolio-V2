@@ -54,8 +54,8 @@ function RotatingRole() {
 }
 
 const stats = [
-  { value: 5, suffix: "", label: "Proyectos completos" },
-  { value: 94, suffix: "", label: "Pruebas automáticas" },
+  { value: 6, suffix: "", label: "Proyectos completos" },
+  { value: 255, suffix: "", label: "Pruebas automáticas" },
   { value: 2, suffix: " años", label: "Con IA aplicada" },
   { value: 7, suffix: "+", label: "Años en operaciones" },
 ];

@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     siteName: "Erick Coll — Portfolio",
     title: "Erick Coll — Desarrollador web Full-Stack",
     description:
-      "No compito por encajar en el mercado. Portfolio de Erick Coll: HotelScout (PWA en producción), JobConnect, ReparaYa, Online Store y TrendTech.",
+      "No compito por encajar en el mercado. Portfolio de Erick Coll: Forja y HotelScout (PWAs en producción), JobConnect, ReparaYa, Online Store y TrendTech.",
     url: siteUrl,
     images: [
       {

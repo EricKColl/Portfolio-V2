@@ -16,7 +16,7 @@ export type Project = {
   githubUrl: string;
   liveUrl?: string;
   slug: string;
-  accent: "cyan" | "blue" | "gold" | "violet" | "magenta";
+  accent: "ember" | "cyan" | "blue" | "gold" | "violet" | "magenta";
   featured?: boolean;
   status?: string;
   mode: "phases" | "experience";
@@ -29,6 +29,34 @@ export type Project = {
 export const projects: Project[] = [
   {
     number: "01",
+    title: "Forja",
+    kicker: "PWA de entrenamiento con IA · Cloudflare",
+    description:
+      "Un plan de fuerza a medida que se explica: motor de reglas determinista, anatomía 3D y MagicErick, una IA que explica pero nunca decide. Funciona sin conexión y los datos de salud no salen del dispositivo.",
+    technologies: ["React", "TypeScript", "Three.js", "Supabase"],
+    githubUrl: "https://github.com/EricKColl/LeriFitness",
+    liveUrl: "https://forja-13u.pages.dev",
+    slug: "forja",
+    accent: "ember",
+    featured: true,
+    status: "EN PRODUCCIÓN",
+    mode: "phases",
+    coverImage: assetPath("/forja/cover.webp"),
+    coverAlt: "Forja en tres móviles: el plan de hoy, el mapa muscular 3D de la semana y el chat de MagicErick",
+    metrics: [
+      { value: "161", label: "pruebas automáticas" },
+      { value: "873", label: "ejercicios explicados" },
+      { value: "0 €", label: "coste de servicio" },
+    ],
+    phases: [
+      { number: "01", label: "Fase 1", title: "Motor de planes", src: assetPath("/forja/fase-1.html") },
+      { number: "02", label: "Fase 2", title: "Anatomía 3D", src: assetPath("/forja/fase-2.html") },
+      { number: "03", label: "Fase 3", title: "MagicErick y nube", src: assetPath("/forja/fase-3.html") },
+      { number: "04", label: "Fase 4", title: "Calidad y producción", src: assetPath("/forja/fase-4.html") },
+    ],
+  },
+  {
+    number: "02",
     title: "HotelScout",
     kicker: "PWA en producción · Cloudflare",
     description:
@@ -56,7 +84,7 @@ export const projects: Project[] = [
     ],
   },
   {
-    number: "02",
+    number: "03",
     title: "JobConnect",
     kicker: "Plataforma full-stack de empleo",
     description:
@@ -76,7 +104,7 @@ export const projects: Project[] = [
     ],
   },
   {
-    number: "03",
+    number: "04",
     title: "ReparaYa",
     kicker: "Gestión integral de incidencias",
     description:
@@ -96,7 +124,7 @@ export const projects: Project[] = [
     ],
   },
   {
-    number: "04",
+    number: "05",
     title: "Online Store",
     kicker: "Aplicación de escritorio Java",
     description:
@@ -117,7 +145,7 @@ export const projects: Project[] = [
     ],
   },
   {
-    number: "05",
+    number: "06",
     title: "TrendTech",
     kicker: "Experiencia web inmersiva 3D",
     description:

@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 const LINES = [
   "> inicializando núcleo…",
-  "> cargando 5 proyectos…",
+  "> cargando 6 proyectos…",
   "> compilando visión…",
   "> sistema listo.",
 ];
